@@ -1,5 +1,3 @@
-# vsc-mvc-api-ajax
-
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -103,16 +101,37 @@ function loadsv(page){
      console.log("so du="+sodu);
      console.log("so trang="+sotrang);
    $('#paging ul').empty();
+    $("#paging ul").append("<li id='next-page'><a href='javascript:void(0)' aria-label=Previous><span aria-hidden=true><<</span></a></li>"); 
+
      var active = '';
      for (var i = 1; i <=sotrang; i++) {
+        {
          if (slt == i)
              active = 'active';
          else
              active = '';
          $('#paging ul').append('<li><a href="javascript:" class="' + active + '" onclick="loadsv(' + i + ')">' + i + '</a></li>');
-     }
- }
+        }
+    }$("#paging ul").append("<li id='next-page'><a href='javascript:void(0)' aria-label=Next><span aria-hidden=true>&raquo;</span></a></li>"); 
+    $(".pagination li.current-page").on("click", function() {
+  // Check if page number that was clicked on is the current page that is being displayed
+  if ($(this).hasClass('active')) {
+    return false; // Return false (i.e., nothing to do, since user clicked on the page number that is already being displayed)
+  } else {
+    var currentPage = $(this).index(); // Get the current page number
+    $(".pagination li").removeClass('active'); // Remove the 'active' class status from the page that is currently being displayed
+    $(this).addClass('active'); // Add the 'active' class status to the page that was clicked on
+    $("#page .list-group").hide(); // Hide all items in loop, this case, all the list groups
+    var grandTotal = limitPerPage * currentPage; // Get the total number of items up to the page number that was clicked on
 
+    // Loop through total items, selecting a new set of items based on page number
+    for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
+      $("#page .list-group:eq(" + i + ")").show(); // Show items from the new page that was selected
+    }
+  }
+
+});
+}
 function loadcbnv(item) {
     detailsHtml ='<tr>';
     detailsHtml += '<td>'+item.id_sv+'</td>'+
