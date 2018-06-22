@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="icon" href="favicon.ico">
+	<script src="Chart.js"></script>
+	<title>Chart.js samples</title>
+</head>
+
+<body>
+
+
+	<canvas id="chart_0" height="400vw" width="400vw"></canvas>
+	<script>
+        var jsondata= {"array":[{"name":"Khoa","diem":"9"},
+        {"name":"Long","diem":"6"}
+        ,{"name":"Hoa","diem":"7"},
+        {"name":"Lân","diem":"10"},
+        {"name":"Kiệt","diem":"6"}]};
+        var cot = jsondata.array.map(function(e){
+            return e.name;
+        })
+        var data = jsondata.array.map(function(e){
+            return e.diem;
+        })
+        var data = {
+			labels: cot,
+			datasets: [{
+				label: "Dataset #1",
+				backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+				borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+				borderWidth: 2,
+				hoverBackgroundColor: "rgba(255,99,132,0.4)",
+				hoverBorderColor: "rgba(255,99,132,1)",
+				data: data,
+			}]
+		};
+
+		var option = {
+			responsive: false,
+			scales: {
+				yAxes: [{
+					stacked: true,
+					gridLines: {
+						display: true,
+						color: "rgba(255,99,132,0.2)"
+					}
+				}],
+				xAxes: [{
+					gridLines: {
+						display: false
+					}
+				}]
+			}
+		};
+
+		Chart.Bar('chart_0', {
+			options: option,
+			data: data
+		});
+	</script>
+
+</body>
+
+</html>
